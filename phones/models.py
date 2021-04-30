@@ -20,12 +20,11 @@ class Mobiles(models.Model):
     model_name = models.CharField(max_length=50, primary_key=True)
     color = models.CharField(max_length=50)
     price = models.PositiveIntegerField()
-    screenSize = models.DecimalField(max_digits=4, decimal_places=2)
-    inStock = models.BooleanField()
+    screen_size = models.DecimalField(max_digits=4, decimal_places=2)
+    in_stock = models.BooleanField()
     manufacturer = models.ForeignKey(
         "Manufacturer", on_delete=models.DO_NOTHING)
     brand = models.ForeignKey("Brand", on_delete=models.CASCADE)
-    # brand_nationality = models.ForeignKey("")
 
     def __str__(self):
         return self.model_name

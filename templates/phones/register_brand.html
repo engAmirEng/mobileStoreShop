@@ -1,0 +1,10 @@
+<h1>ثبت برند جدید</h1>
+{% if massage %}
+<h2>{{ massage }}</h2>
+{% endif %}
+<form action="{% url 'phones:register_brand' %}" method="post">
+  {% csrf_token %}
+  <br /><br />
+  {{ brand_form.as_p }}
+  <input type="submit" value="save" />
+</form>
