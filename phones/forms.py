@@ -23,3 +23,13 @@ class ManufacturerForm(forms.ModelForm):
         model = Manufacturer
         fields = ["country_name"]
         labels = {"country_name": "کشور سازنده"}
+
+
+class BrandNatReportForm(forms.Form):
+    choices = [(i.nationality, i.nationality) for i in Brand.objects.all()]
+    brand_nationality = forms.ChoiceField(label=" ملیت برند ", choices=choices, required=True)
+
+
+class BrandMobReportForm(forms.Form):
+    choices = [(i.name, i.name) for i in Brand.objects.all()]
+    brand_name = forms.ChoiceField(label="نام برند ", choices=choices, required=True)

@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.utils import timezone
 from .forms import MobileForm, BrandForm, ManufacturerForm
 from .models import Brand, Manufacturer, Mobiles
@@ -93,4 +93,26 @@ def update_record(request):
         return render(request, "templates/phones/update_record.html", \
                                         {"status": status, "massage":massage})
 
-    
+
+from .forms import BrandNatReportForm, BrandMobReportForm
+from django.core import serializers
+from django.http import JsonResponse
+
+def report(request):
+    if request.method == "GET":
+        brand_nat_form = BrandNatReportForm()
+        brand_mob_form = BrandMobReportForm()
+        form = {"brand_nat_form":brand_nat_form, "brand_mob_form":brand_mob_form}
+        return render(request, "templates/phones/reports.html", form)
+    else:
+        if 'brand_nationality' in request.POST:
+            brand_nationality = request.POST['brand_nationality']
+            obj = Brand.objects.filter(nationality=brand_nationality)
+            return HttpResponse(f"---{brand_nationality}--"+",".join([obj[i].name for i in range(len(obj))]))
+        elif 'brand_name' in request.POST:
+            brand_names = request.POST["brand_name"]
+            obj = Mobiles.objects.filter(brand=brand_names)
+            obj_json = serializers.serialize("json", obj)
+            data = {"SomeModel_json": obj_json}
+            return JsonResponse(data)
+        
