@@ -7,12 +7,15 @@
 <h3>{{ massage }}</h3>
 {% endif %}
 <form action="{% url 'phones:register_mobile' %}" method="post">
-  {% csrf_token %} {{ mobile_form.as_p }}
-  <input type="submit" value="save" />
+  {% csrf_token %}
+  {{ mobile_form.as_p }}
+  <input type="submit" value=" ثبت " />
 </form>
 
-<a href="{% url 'phones:register_anufacturer' %}"
-  ><button>ثبط کشور سازنده جدید</button></a
->
+<a href="{% url 'phones:register_anufacturer' %}">
+  <button>ثبت کشور سازنده جدید</button>
+</a>
 <br />
-<a href="{% url 'phones:register_brand' %}"><button>ثبط برند جدید</button></a>
+<a href="{% url 'phones:register_brand' %}">
+  <button>ثبت برند جدید</button>
+</a>

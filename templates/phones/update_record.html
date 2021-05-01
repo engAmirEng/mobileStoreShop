@@ -1,0 +1,22 @@
+<h1>به روز رسانی گوشی ثبت شده</h1>
+<h2>{{ massage }}</h2>
+<form action="{% url 'phones:update_record' %}" method="post">
+  {% csrf_token %}
+  {% if status == "search" %}
+    <label for="model_name"> مدل گوشی را وارد کنید </label>
+    <input type="text" name="model_name_update" id="model_name" />
+    <input type="submit" value=" جست و جو " />
+  {% elif status == "update" %}
+    {% if filled_form %}
+        {{ filled_form.as_p}}
+    <input type="submit" value=" ذخیره تغییرات " />
+    {% endif %}
+    <br/><br/>
+    <a href="{% url 'phones:register_anufacturer' %}">
+      <button>ثبت کشور سازنده جدید</button>
+    </a>
+    <a href="{% url 'phones:register_brand' %}">
+      <button>ثبت برند جدید</button>
+    </a>
+  {% endif %}
+</form>
