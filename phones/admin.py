@@ -2,6 +2,8 @@ from django.contrib import admin
 from .models import Mobiles, Manufacturer, Brand
 
 
+# register the models in admin area
+
 @admin.register(Mobiles)
 class MobilesAdmin(admin.ModelAdmin):
     list_display = [i.name for i in Mobiles._meta.get_fields()]

@@ -1,6 +1,7 @@
 from django.db import models
-from tastypie.resources import ModelResource
 
+
+# implementing models based on the logical model provided on "/logical_model.pdf"
 
 class Manufacturer(models.Model):
     country_name = models.CharField(max_length=50, primary_key=True)
@@ -29,6 +30,10 @@ class Mobiles(models.Model):
 
     def __str__(self):
         return self.model_name
+
+
+# MobileResource Model implemented to provide "api"
+from tastypie.resources import ModelResource
 
 class MobileResource(ModelResource):
     class Meta:
