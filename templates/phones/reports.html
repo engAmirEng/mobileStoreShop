@@ -5,11 +5,17 @@
 {{ brand_nat_form }}
 <input type="submit" value=" مشاهده برند های این ملیت ">
 </form>
-<br><br>
+<br><p>-----------------------------------------------------------------</p><br>
 <form action="{% url 'phones:report' %}" method="post">
 {% csrf_token %}
 {{ brand_mob_form }}
 <input type="submit" value=" مشاهده لیست موبایل تحت این برند ">
 </form>
-<br><br>
-<form action="{% url 'phones:report' %}" method="post"><input type="submit" value=" فیلتر برابری کشور سازنده با ملیت برند "></form>
+<br><p>-----------------------------------------------------------------</p><br>
+<form action="{% url 'phones:report' %}" method="post">
+    {% csrf_token %}
+    {{ nat_man_form.as_p }}
+    <input type="submit" value=" فیلتر لیست موبایل ها ">
+</form>
+<br><p>-----------------------------------------------------------------</p><br>
+<button><a href="/api/Mobiles"> هدایت به اند پوینت </a></button>

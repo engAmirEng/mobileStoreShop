@@ -33,3 +33,10 @@ class BrandNatReportForm(forms.Form):
 class BrandMobReportForm(forms.Form):
     choices = [(i.name, i.name) for i in Brand.objects.all()]
     brand_name = forms.ChoiceField(label="نام برند ", choices=choices, required=True)
+
+
+class NatManForm(forms.Form):
+    nat_choices = [(i.nationality, i.nationality) for i in Brand.objects.all()]
+    brand_nationality = forms.ChoiceField(label=" ملیت برند ", choices=nat_choices, required=True)
+    man_choices = [(i.country_name , i.country_name ) for i in Manufacturer.objects.all()]
+    manufacturer = forms.ChoiceField(label=" کشور سازنده ", choices=man_choices, required=True)

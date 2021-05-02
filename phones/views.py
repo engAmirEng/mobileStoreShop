@@ -94,7 +94,7 @@ def update_record(request):
                                         {"status": status, "massage":massage})
 
 
-from .forms import BrandNatReportForm, BrandMobReportForm
+from .forms import BrandNatReportForm, BrandMobReportForm, NatManForm
 from django.core import serializers
 from django.http import JsonResponse
 
@@ -102,17 +102,29 @@ def report(request):
     if request.method == "GET":
         brand_nat_form = BrandNatReportForm()
         brand_mob_form = BrandMobReportForm()
-        form = {"brand_nat_form":brand_nat_form, "brand_mob_form":brand_mob_form}
+        nat_man_form = NatManForm()
+        form = {"brand_nat_form":brand_nat_form, "brand_mob_form":brand_mob_form, "nat_man_form":nat_man_form}
         return render(request, "templates/phones/reports.html", form)
     else:
-        if 'brand_nationality' in request.POST:
+        if 'brand_nationality' in request.POST and 'manufacturer' not in request.POST:
             brand_nationality = request.POST['brand_nationality']
             obj = Brand.objects.filter(nationality=brand_nationality)
-            return HttpResponse(f"---{brand_nationality}--"+",".join([obj[i].name for i in range(len(obj))]))
+            obj_json = serializers.serialize("json", obj)
+            data = {"Brands": obj_json}
+            return JsonResponse(data)
         elif 'brand_name' in request.POST:
             brand_names = request.POST["brand_name"]
             obj = Mobiles.objects.filter(brand=brand_names)
             obj_json = serializers.serialize("json", obj)
-            data = {"SomeModel_json": obj_json}
+            data = {"Mobiles": obj_json}
             return JsonResponse(data)
-        
+        elif 'brand_nationality' and 'manufacturer' in request.POST:
+            brand_nationality = request.POST["brand_nationality"]
+            manufacturer = request.POST["manufacturer"]
+            obj = Mobiles.objects.filter(brand__nationality=brand_nationality, manufacturer=manufacturer)
+            obj_json = serializers.serialize("json", obj)
+            data = {"Mobiles": obj_json}
+            return JsonResponse(data)
+        else:
+            return HttpResponse()
+

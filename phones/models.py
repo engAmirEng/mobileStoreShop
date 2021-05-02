@@ -1,4 +1,5 @@
 from django.db import models
+from tastypie.resources import ModelResource
 
 
 class Manufacturer(models.Model):
@@ -28,3 +29,8 @@ class Mobiles(models.Model):
 
     def __str__(self):
         return self.model_name
+
+class MobileResource(ModelResource):
+    class Meta:
+        queryset = Mobiles.objects.all()
+        resource_name = "Mobiles"
