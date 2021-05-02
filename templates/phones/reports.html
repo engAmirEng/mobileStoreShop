@@ -1,21 +1,33 @@
 <h1>گزارش گیری</h1>
-<br>
+<br />
 <form action="{% url 'phones:report' %}" method="post">
-{% csrf_token %}
-{{ brand_nat_form }}
-<input type="submit" value=" مشاهده برند های این ملیت ">
+  {% csrf_token %} {{ brand_nat_form }}
+  <input type="submit" value=" مشاهده برند های این ملیت " />
 </form>
-<br><p>-----------------------------------------------------------------</p><br>
+<br />
+<p>-----------------------------------------------------------------</p>
+<br />
 <form action="{% url 'phones:report' %}" method="post">
-{% csrf_token %}
-{{ brand_mob_form }}
-<input type="submit" value=" مشاهده لیست موبایل تحت این برند ">
+  {% csrf_token %} {{ brand_mob_form }}
+  <input type="submit" value=" مشاهده لیست موبایل تحت این برند " />
 </form>
-<br><p>-----------------------------------------------------------------</p><br>
+<br />
+<p>-----------------------------------------------------------------</p>
+<br />
 <form action="{% url 'phones:report' %}" method="post">
-    {% csrf_token %}
-    {{ nat_man_form.as_p }}
-    <input type="submit" value=" فیلتر لیست موبایل ها ">
+  {% csrf_token %} {{ nat_man_form.as_p }}
+  <input type="submit" value=" فیلتر لیست موبایل ها " />
 </form>
-<br><p>-----------------------------------------------------------------</p><br>
+<br />
+<p>-----------------------------------------------------------------</p>
+<br />
+<form action="{% url 'phones:report' %}" method="post">
+  {% csrf_token %}
+  <label for="native"> گوشی های دارای ملیت برند و تولید کننده یکسان </label>
+  <input type="radio" name="get_native" id="native" checked />
+  <input type="submit" value=" اعمال " />
+</form>
+<br />
+<p>-----------------------------------------------------------------</p>
+<br />
 <button><a href="/api/Mobiles"> هدایت به اند پوینت </a></button>
